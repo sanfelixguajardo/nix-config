@@ -11,4 +11,4 @@ sudo nixos-generate-config --show-hardware-config > $SCRIPT_DIR/system/hardware-
 sudo nixos-rebuild switch --flake $SCRIPT_DIR;
 
 # Install and build home-manager configuration
-nix run home-manager/master --extra-experimental-features nix-command --extra-experimental-features flakes --switch --flake $SCRIPT_DIR#sanfe;
+nix run home-manager/master --extra-experimental-features nix-command --extra-experimental-features flakes -- switch --flake $SCRIPT_DIR#sanfe;
