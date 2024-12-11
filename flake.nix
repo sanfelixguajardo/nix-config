@@ -40,7 +40,7 @@
 				
 				install = pkgs.writeShellApplication {
 					name = "install";
-					runimeInputs = with pkgs; [ git ];
+					runtimeInputs = with pkgs; [ git ];
 					text = ''${./install.sh} "$@"'';
 				};
 		});
