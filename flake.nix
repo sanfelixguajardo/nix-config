@@ -14,6 +14,7 @@
 			lib = nixpkgs.lib;
 			system = "x86_64-linux";
 			pkgs = nixpkgs.legacyPackages.${system};
+			nixpkgsFor = forAllSystems (system: import inputs.nixpkgs { inherit system; });
 		in {
 		
 		nixosConfigurations = { 
@@ -28,5 +29,26 @@
 				modules = [ ./home.nix ];
 			};
 		};
+
+		packages = forAllSystems (system:
+			let pkgs = nixpkgsFor.${system}
+			in {
+				default = self.packages.${system}.install;
+				
+				install = pkgs.writeShellApplication {
+					name = "install"
+					runimeInputs = with pkgs; [ git ];
+					text = ''${./install.sh} "$@"'';
+				};
+		});
+		
+		apps = forAllSystems (system: {
+			default = self.apps.${system}.install;
+
+			install = {
+				type = "app";
+				program = "${self.packages.${system}.install}/bin/install";
+			};
+		});
 	};
 }
