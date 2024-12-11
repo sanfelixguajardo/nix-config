@@ -39,7 +39,7 @@
 				default = self.packages.${system}.install;
 				
 				install = pkgs.writeShellApplication {
-					name = "install"
+					name = "install";
 					runimeInputs = with pkgs; [ git ];
 					text = ''${./install.sh} "$@"'';
 				};
