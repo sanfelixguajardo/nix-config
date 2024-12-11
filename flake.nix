@@ -34,7 +34,7 @@
 		};
 
 		packages = forAllSystems (system:
-			let pkgs = nixpkgsFor.${system}
+			let pkgs = nixpkgsFor.${system};
 			in {
 				default = self.packages.${system}.install;
 				
